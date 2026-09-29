@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Card | Modern Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+            --bg: #f3f4f6;
+            --white: #ffffff;
+            --danger: #ef4444;
+            --success: #16a34a;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: "Poppins", sans-serif;
+            background:
+                radial-gradient(circle at top left, #c7d2fe, transparent 35%),
+                radial-gradient(circle at bottom right, #ddd6fe, transparent 35%),
+                var(--bg);
+        }
+        .container {
+            width: 100%;
+            max-width: 430px;
+            padding: 38px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.12),
+                0 5px 15px rgba(0, 0, 0, 0.05);
+            animation: cardShow 0.7s ease;
+        }
+        @keyframes cardShow {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.97);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .logo {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            font-size: 28px;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+        }
+        .container h1 {
+            text-align: center;
+            color: var(--text);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        /* Form */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            margin-bottom: 8px;
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .input-box {
+            position: relative;
+        }
+        .input-box .icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 17px;
+            color: #9ca3af;
+            pointer-events: none;
+        }
+        .form-group input {
+            width: 100%;
+            height: 50px;
+            padding: 0 45px;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            outline: none;
+            background: #fafafa;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            transition: 0.3s ease;
+        }
+        .form-group input::placeholder {
+            color: #9ca3af;
+        }
+        .form-group input:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: #9ca3af;
+            font-size: 16px;
+        }
+        .password-toggle:hover {
+            color: var(--primary);
+        }
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 5px 0 22px;
+            font-size: 13px;
+        }
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--muted);
+            cursor: pointer;
+        }
+        .remember input {
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+        .forgot {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .forgot:hover {
+            text-decoration: underline;
+        }
+        .btn {
+            position: relative;
+            width: 100%;
+            height: 52px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg,
+                    var(--primary),
+                    #7c3aed);
+            color: white;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            overflow: hidden;
+            transition: 0.3s ease;
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.25);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 25px rgba(79, 70, 229, 0.3);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        .btn.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            margin: auto;
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+        .btn.loading .btn-text {
+            display: none;
+        }
+        .btn.loading .spinner {
+            display: block;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 25px 0;
+            color: #9ca3af;
+            font-size: 12px;
+        }
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+        .create-account {
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+        }
+        .create-account a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .create-account a:hover {
+            text-decoration: underline;
+        }
+        .message {
+            display: none;
+            margin-top: 18px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-size: 13px;
+            text-align: center;
+        }
+        .message.error {
+            display: block;
+            color: #b91c1c;
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+        }
+        .message.success {
+            display: block;
+            color: #15803d;
+            background: #dcfce7;
+            border: 1px solid #bbf7d0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #9ca3af;
+            font-size: 11px;
+        }
+        @media (max-width: 500px) {
+            body {
+                padding: 15px;
+            }
+            .container {
+                padding: 28px 22px;
+                border-radius: 20px;
+            }
+            .container h1 {
+                font-size: 24px;
+            }
+            .logo {
+                width: 1px;
+                height: 1px;
+                font-size: 24px;
+                border-radius: 100%;
+            }
+        }
+        @media (max-width: 350px) {
+            .options {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+        .card{
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+   <div class="card">
+    <div class="box">
+    <div class="container">
+        <div class="logo">
+            <img style="width: 150px; height: 70px; border-radius: 100%; object-fit: conver;" src="./DSC02504 copy copy.jpg"
+                alt="">
+        </div>
+        <h1>Welcome Back</h1>
+        <p class="subtitle">
+            Login to your account to continue
+        </p>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <div class="input-box">
+                    <span class="icon">👤</span>
+                    <input type="text" id="name" placeholder="Enter your name" autocomplete="name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Your Email</label>
+                <div class="input-box">
+                    <span class="icon">✉</span>
+                    <input type="email" id="email" placeholder="example@gmail.com" autocomplete="email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <div class="input-box">
+                    <span class="icon">📱</span>
+                    <input type="tel" id="phone" placeholder="012 345 678" autocomplete="tel">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-box">
+                    <span class="icon">🔒</span>
+                    <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
+                    <button type="button" class="password-toggle" id="passwordToggle">
+                        👁
+                    </button>
+                </div>
+            </div>
+            <div class="options">
+                <label class="remember">
+                    <input type="checkbox" id="remember">
+                    Remember me
+                </label>
+                <a href="#" class="forgot" id="forgotPassword">
+                    Forgot Password?
+                </a>
+            </div>
+            <button type="submit" class="btn" id="loginButton">
+                <span class="btn-text">
+                    Continue
+                </span>
+                <span class="spinner"></span>
+            </button>
+            <div class="message" id="message"></div>
+        </form>
+        <div class="divider">
+            OR
+        </div>
+        <div class="create-account">
+            Don't have an account?
+            <a href="#" id="createAccount">
+                Create New Account
+            </a>
+        </div>
+        <div class="footer">
+            © 2026 Login Card. All rights reserved.
+        </div>
+    </div>
+   </div>
+   <div class="box">
+    <img style="border-radius: 20px; width: 100%; height: 900px;" src="https://ntti.edu.kh/assets/images/hotnews/36_.jpg" alt="">
+   </div>
+   </div>
+    <script>
+        const loginForm = document.getElementById("loginForm");
+        const password = document.getElementById("password");
+        const passwordToggle = document.getElementById("passwordToggle");
+        const loginButton = document.getElementById("loginButton");
+        const message = document.getElementById("message");
+        passwordToggle.addEventListener("click", function () {
+            if (password.type === "password") {
+                password.type = "text";
+                passwordToggle.textContent = "";
+            } else {
+                password.type = "password";
+                passwordToggle.textContent = "";
+            }
+        });
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const passwordValue = password.value.trim();
+            message.className = "message";
+            message.textContent = "";
+            if (
+                name === "" ||
+                email === "" ||
+                phone === "" ||
+                passwordValue === ""
+            ) {
+                showMessage(
+                    "Please fill in all fields.",
+                    "error"
+                );
+                return;
+            }
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                showMessage(
+                    "Please enter a valid email address.",
+                    "error"
+                );
+                return;
+            }
+            if (passwordValue.length < 6) {
+                showMessage(
+                    "Password must contain at least 6 characters.",
+                    "error"
+                );
+                return;
+            }
+            loginButton.classList.add("loading");
+            setTimeout(function () {
+                loginButton.classList.remove("loading");
+                showMessage(
+                    "Login successful! Welcome, " + name + " 🎉",
+                    "success"
+                );
+            }, 1500);
+        });
+        function showMessage(text, type) {
+            message.textContent = text;
+            message.className = "message " + type;
+        }
+        document
+            .getElementById("forgotPassword")
+            .addEventListener("click", function (event) {
+                event.preventDefault();
+                showMessage(
+                    "Password reset feature will be available soon.",
+                    "success"
+                );
+            });
+        document
+            .getElementById("createAccount")
+            .addEventListener("click", function (event) {
+                event.preventDefault();
+                showMessage(
+                    "Create Account page will be available soon.",
+                    "success"
+                );
+            });
+    </script>
+</body>
+</html>
